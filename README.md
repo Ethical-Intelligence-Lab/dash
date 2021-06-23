@@ -6,10 +6,10 @@ Real-time motion planner and autonomous vehicle simulator in the browser, built 
 
 Quickstart (Mike's notes):
 
-(1) Download the repo (I’ve forked it here): https://github.com/mvimont/dash/settings
-(2) Assuming it’s in your home directory, in chrome navigate to $HOME/dash/index.html
-(3) Select ‘autonomous’ in the upper left corner.
-(3) Select ‘Load Scenario’ and ‘Example Scenarios’ and any of these should automatically start 
+<li>(1) Clone the repo</li>
+<li>(2) Assuming it’s in your home directory, in chrome navigate to $HOME/dash/index.html</li>
+<li>(3) Select ‘autonomous’ in the upper left corner.</li>
+<li>(3) Select ‘Load Scenario’ and ‘Example Scenarios’ and any of these should automatically start</li> 
 
 Original Readme
 
