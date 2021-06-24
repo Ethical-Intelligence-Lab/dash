@@ -1,0 +1,28 @@
+{
+    "user" : "sonia",
+    "annotations" : [ 
+        {
+            "annotation_id" : 1,
+            "quality_score" : 90,
+            "config" : {
+                "name" : "standard",
+                "safety" : {
+                    "obstacleHazardCost" : 200
+                },
+                "comfort" : {
+                    "hardAccelerationPenalty" : 70,
+                    "hardDecelerationPenalty" : 50,
+                    "softLateralAccelerationPenalty" : 100,
+                    "linearLateralAcceleration" : 10,
+                    "accelerationChangePenalty" : 10
+                },
+                "efficiency" : {
+                    "extraTimePenalty" : 1000
+                },
+                "violations" : {
+                    "speedLimitViolation" : 200
+                }
+            }
+        }
+    ]
+}

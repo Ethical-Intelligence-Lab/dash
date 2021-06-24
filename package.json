@@ -9,6 +9,7 @@
   "author": "Matt Bradley",
   "license": "MIT",
   "devDependencies": {
+    "mongodb": "3.6.9",	  
     "script-loader": "0.7.2",
     "webpack": "4.0.1",
     "webpack-cli": "2.0.9",
