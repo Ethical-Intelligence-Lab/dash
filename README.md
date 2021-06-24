@@ -4,6 +4,15 @@ Real-time motion planner and autonomous vehicle simulator in the browser, built 
 
 ![Dash](./readme/dash.gif)
 
+Quickstart (Mike's notes):
+
+<li>(1) Clone the repo</li>
+<li>(2) Assuming it’s in your home directory, in chrome navigate to $HOME/dash/index.html</li>
+<li>(3) Select ‘autonomous’ in the upper left corner.</li>
+<li>(3) Select ‘Load Scenario’ and ‘Example Scenarios’ and any of these should automatically start</li> 
+
+Original Readme
+
 This project demonstrates a real-time, on-road, lattice-based autonomous vehicle motion planner in the browser. Many autonomous vehicle motion planners are implemented close to the metal in C or C++, or they utilize computing platforms like CUDA or OpenCL to generate plans in a highly parallel fashion on the GPU. Using WebGL, we can implement similar parallel planning algorithms right in the browser that can run on a variety of moderately-powerful consumer graphics cards. With Three.js, the motion planner can be executed in real-time 3D simulated scenarios.
 
 This simulator is still a work-in-progress. You may see bugs, WebGL crashes, strange vehicle behavior, and any number of other failures. Currently, it is functional only in [Google Chrome](https://www.google.com/chrome/) with [hardware acceleration enabled](#enable-hardware-acceleration) and [experimental canvas features enabled](#enable-experimental-canvas-features). The target frame rate is 60fps, but it may run slower depending on how long planning takes on your hardware.
