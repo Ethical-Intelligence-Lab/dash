@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="jsPsych-lite/jspsych.js"></script>
+  <script src="jsPsych-lite/plugins/jspsych-custom-image-slider-with-value.js"></script>
+  <link rel="stylesheet" href="jsPsych-lite/css/csa-tree.css"></link>
+  <style>
+    img {
+      width: 800px;
+    }
+  </style>
+</head>
+<body></body>
+<script>
+
+
+  const stimuli = ['gifs/samplegif_1.gif', 'gifs/samplegif_2.gif', 'gifs/samplegif_3.gif']
+  var timeline = []
+
+  for (var n = 0; n < stimuli.length; n++){
+
+      var trial = {
+        type: 'image-slider-response',
+        stimulus: stimuli[n],
+        labels: ['1 (Worst)', '100 (Best)'],
+        slider_width: 600,
+        show_value: true,
+        start: 50,
+        require_movement: true,
+        prompt: '<p>How good is this motion path?</p>'
+      }
+      timeline.push(trial);
+  }
+
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() {
+      jsPsych.data.displayData();
+    },
+    default_iti: 250
+  });
+</script>
+
+</html>
