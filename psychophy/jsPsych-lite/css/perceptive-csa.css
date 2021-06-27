@@ -1,0 +1,223 @@
+/*
+ * CSS for jsPsych experiments.
+ *
+ * This stylesheet provides minimal styling to make jsPsych
+ * experiments look polished without any additional styles.
+ * adapted by Sonia to yield nice appearance for 2021 candidate
+ * stimulus approval task
+ */
+
+
+ @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+
+/* Container holding jsPsych content */
+
+ .jspsych-display-element {
+   display: flex;
+   flex-direction: column;
+   overflow-y: auto;
+ }
+
+ .jspsych-display-element:focus {
+   outline: none;
+ }
+
+ .jspsych-content-wrapper {
+   display: flex;
+   margin: auto;
+   flex: 1 1 100%;
+   width: 100%;
+ }
+
+ .jspsych-content {
+   max-width: 95%; /* this is mainly an IE 10-11 fix */
+   text-align: center;
+   margin: auto; /* this is for overflowing content */
+ }
+
+ .jspsych-top {
+   align-items: flex-start;
+ }
+
+ .jspsych-middle {
+   align-items: center;
+ }
+
+/* fonts and type */
+
+.jspsych-display-element {
+  font-family: 'Helvetica','Open Sans', 'Arial', sans-serif;
+  font-weight: lighter;
+  font-size: 18px;
+  line-height: 1.6em;
+}
+
+/* Form elements like input fields and buttons */
+
+.jspsych-display-element input[type="text"] {
+  font-family: 'Helvetica','Open Sans', 'Arial', sans-serif;
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+/* borrowing Bootstrap style for btn elements, but combining styles a bit */
+.jspsych-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Helvetica','Open Sans', 'Arial', sans-serif;
+  font-weight: lighter;
+  cursor: pointer;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.jspsych-btn:hover {
+  background-color: #ddd;
+  border-color: #aaa;
+}
+
+.jspsych-btn:disabled {
+  background-color: #eee;
+  color: #aaa;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* jsPsych progress bar */
+
+#jspsych-progressbar-container {
+  color: #555;
+  border-bottom: 1px solid #dedede;
+  background-color: #f9f9f9;
+  margin-bottom: 1em;
+  text-align: center;
+  padding: 8px 0px;
+  width: 100%;
+  line-height: 1em;
+}
+#jspsych-progressbar-container span {
+  font-size: 14px;
+  padding-right: 14px;
+}
+#jspsych-progressbar-outer {
+  background-color: #eee;
+  width: 50%;
+  margin: auto;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+#jspsych-progressbar-inner {
+  background-color: #aaa;
+  width: 0%;
+  height: 100%;
+}
+
+/* Control appearance of jsPsych.data.displayData() */
+#jspsych-data-display {
+  text-align: left;
+}
+
+/* from new-csa-trial css */
+
+.img_wrapper{
+    text-align:center;
+}
+.img{
+    display:inline-block;
+    margin:20px 5px;
+    padding:2px;
+    border:1px solid #CCC;
+}
+.button, .accordion_outer_button, .accordion_inner_button {
+    font-size: 16px;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.4s;
+}
+.bottom_right {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+}
+.top_left {
+    font-size: 14px;
+    border: gray solid 1px;
+    color: gray;
+    background-color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 4px;
+    cursor: pointer;
+}
+.tooltip {
+    font-size: 70%;
+    font-family: 'Helvetica','Open Sans', 'Arial', sans-serif;
+    font-weight: bold;
+    position: absolute;
+    top: 0px;
+    right: 6px;
+    color: grey;
+    cursor: default;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: black;
+    color: #fff;
+    text-align: left;
+    border: 6px;
+    padding: 8px 8px;
+    font-size: 12px;
+    font-weight: lighter;
+    line-height: normal;
+
+/* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* reprocess form */
+.reprocess-form-div {
+    padding: 3px;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+.reprocess-form {
+    padding: 2px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rating Motion Plans</title>
+  <script src="jsPsych-lite/jspsych.js"></script>
+  <script src="jsPsych-lite/plugins/jspsych-custom-video-form-inputs.js"></script>
+  <link rel="stylesheet" href="jsPsych-lite/css/perceptive-csa.css"></link>
+  <style>
+    img {
+      width: 800px;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body></body>
+
+
+<script>
+
+    
+
+  const colors = ["rgb(50,168,82)", "rgb(158, 24, 24)", "rgb(18, 73, 201)","rgb(241, 135, 11)","rgb(113, 9, 166)"] // green, red, blue, yellow
+  const annotation_opts = ['good','comfortable','safe','efficient','lawful']
+
+  const file_path = 'test_stims/'
+  const stimuli = ['example1.m4v','example2.m4v']
+  var timeline = []
+
+  // can add trials for each annotation_opt later
+  for (var opt = 0; opt < annotation_opts.length; opt++) {
+    for (var n = 0; n < stimuli.length; n++){
+
+        var trial = {
+            type: 'custom-video-form-inputs',
+            stimulus: file_path+ stimuli[n],
+            prompt: 'How <span style="font-weight:bold; color:'+colors[opt]+'">'+
+                    annotation_opts[opt] +' </span> is this motion path?',
+            form_html: '<label for="'+annotation_opts[opt] +'" style="font-size:12px"> Rating from 1-100: </label>' +
+            '<input type="number" id="response" name="'+annotation_opts[opt] +'" min="1" max="100" style="width:50px">',
+            delay_form: false,
+            submit_keys: ['return','space'],
+        }
+        timeline.push(trial);
+    }
+}
+
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() {
+      jsPsych.data.displayData('json');
+    },
+    default_iti: 250
+  });
+</script>
+
+</html>
