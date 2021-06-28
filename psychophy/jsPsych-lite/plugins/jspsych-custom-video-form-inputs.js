@@ -109,13 +109,7 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'The text that appears on the button to finish the trial.'
-      },
-      dataAsArray: {
-        type: jsPsych.plugins.parameterType.BOOLEAN,
-        pretty_name: 'Data As Array',
-        default:  false,
-        description: 'Retrieve the data as an array e.g. [{name: "INPUT_NAME", value: "INPUT_VALUE"}, ...] instead of an object e.g. {INPUT_NAME: INPUT_VALUE, ...}.'
-      },      
+      },    
       submit_keys: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
@@ -180,9 +174,10 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
       document.getElementById("response").focus();
     }
 
-    // don't allow submission before video is done
+    // don't allow submission before video is done, start RT recording
     var video_done = false
-    display_element.querySelector('#jspsych-video-player').onended = function () {video_done=true}
+    display_element.querySelector('#jspsych-video-player').onended = function () {video_done=true};
+    //display_element.querySelector('#jspsych-video-player').onended = function () {var start_time = performance.now();}
 
     if (trial.test_playback>0){
       // check whether video is playing X ms in. If not, abort all of experiment.
@@ -205,7 +200,8 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
     }
 
     document.getElementById("response").focus();
-    // start listening from form
+
+    // listen for submit click
     display_element.querySelector('#jspsych-survey-html-form').addEventListener('submit', function(event) {
       event.preventDefault(); // don't submit form
       on_submit();
@@ -230,19 +226,16 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
     
       var form = document.querySelector('#jspsych-survey-html-form');
       if (document.getElementById("response").value != '' && video_done) {
-        var endTime = performance.now();
-        var response_time = endTime - startTime;
-        var question_data = serializeArray(form);
-    
-        if (!trial.dataAsArray) {
-          question_data = objectifyForm(question_data);
-        }
-    
+        //var end_time = performance.now();
+        //var response_time = end_time - start_time;
+
         // save data
         var trialdata = {
-          "rt": response_time,
-          "response": JSON.stringify(question_data),
-          "stimulus":trial.stimulus
+          //"user": trial.user,
+          "annotation": trial.question_type,
+          "response": parseInt(document.getElementById("response").value),
+          "stimulus":trial.stimulus,
+          //"rt": response_time
         };
     
         display_element.innerHTML = '';
@@ -256,55 +249,6 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
 
   }; // plugin.trial
 
-
-  /*!
-   * Serialize all form data into an array
-   * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
-   * @param  {Node}   form The form to serialize
-   * @return {String}      The serialized form data
-   */
-  var serializeArray = function (form) {
-    // Setup our serialized data
-    var serialized = [];
-
-    // Loop through each field in the form
-    for (var i = 0; i < form.elements.length; i++) {
-      var field = form.elements[i];
-
-      // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
-      if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
-
-      // If a multi-select, get all selections
-      if (field.type === 'select-multiple') {
-        for (var n = 0; n < field.options.length; n++) {
-          if (!field.options[n].selected) continue;
-          serialized.push({
-            name: field.name,
-            value: field.options[n].value
-          });
-        }
-      }
-
-      // Convert field data to a query string
-      else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
-        serialized.push({
-          name: field.name,
-          value: field.value
-        });
-      }
-    }
-
-    return serialized;
-  };
-
-  // from https://stackoverflow.com/questions/1184624/convert-form-data-to-javascript-object-with-jquery
-  function objectifyForm(formArray) {//serialize data function
-    var returnArray = {};
-    for (var i = 0; i < formArray.length; i++){
-      returnArray[formArray[i]['name']] = formArray[i]['value'];
-    }
-    return returnArray;
-  };
 
   function listen_keys() {
     // start the response listener
