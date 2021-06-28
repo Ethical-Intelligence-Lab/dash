@@ -29,8 +29,8 @@
 
     
 
-  const colors = ["rgb(50,168,82)", "rgb(158, 24, 24)", "rgb(18, 73, 201)","rgb(241, 135, 11)","rgb(113, 9, 166)"] // green, red, blue, yellow
-  const annotation_opts = ['good','comfortable','safe','efficient','lawful']
+  const colors = ["rgb(50,168,82)"]//, "rgb(158, 24, 24)", "rgb(18, 73, 201)","rgb(241, 135, 11)","rgb(113, 9, 166)"] // green, red, blue, yellow
+  const annotation_opts = ['good']//,'comfortable','safe','efficient','lawful']
 
   const file_path = 'test_stims/'
   const stimuli = ['example1.m4v','example2.m4v']
@@ -49,6 +49,7 @@
             '<input type="number" id="response" name="'+annotation_opts[opt] +'" min="1" max="100" style="width:50px">',
             delay_form: false,
             submit_keys: ['return','space'],
+            question_type: annotation_opts[opt]
         }
         timeline.push(trial);
     }
