@@ -32,7 +32,7 @@
   const annotation_opts = ['good']//,'comfortable','safe','efficient','lawful']
 
   const file_path = 'test_stims/';
-  const num_stim = 2;
+  const num_stim = 20;
   const start_stim = parseInt(prompt('Complete '+String(num_stim)+' annotations, starting with config #: ','1'),10)
   //const stimuli = ['config1.webm']//['example1.m4v']//,'example2.m4v']
   var timeline = []
@@ -63,6 +63,7 @@ timeline.push(user_id_trial);
             width: 1000,
             //stimulus: file_path + 'example' + n +'.m4v',
             config_num: n,
+            rate: 2,
             stimulus: file_path +n +'.webm',
             prompt: 'How <span style="font-weight:bold; color:'+colors[opt]+'">'+
                     annotation_opts[opt] +' </span> is this motion path?',

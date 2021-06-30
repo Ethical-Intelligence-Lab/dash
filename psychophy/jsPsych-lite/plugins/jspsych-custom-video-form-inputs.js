@@ -206,6 +206,7 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
     }
 
     document.getElementById("response").focus();
+    document.querySelector('#jspsych-video-player').playbackRate = trial.rate;
 
     // listen for submit click
     display_element.querySelector('#jspsych-survey-html-form').addEventListener('submit', function(event) {
