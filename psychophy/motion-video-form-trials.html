@@ -31,20 +31,22 @@
   const colors = ["rgb(50,168,82)"]//, "rgb(158, 24, 24)", "rgb(18, 73, 201)","rgb(241, 135, 11)","rgb(113, 9, 166)"] // green, red, blue, yellow
   const annotation_opts = ['good']//,'comfortable','safe','efficient','lawful']
 
-  const file_path = 'test_stims/'
-  const stimuli = ['config1.webm']//['example1.m4v']//,'example2.m4v']
+  const file_path = 'test_stims/';
+  const num_stim = 5;
+  //const stimuli = ['config1.webm']//['example1.m4v']//,'example2.m4v']
   var timeline = []
 
 
    // check subject's understanding of intstructions
    var user_id_trial = {
         type: 'survey-text',
+        preamble: '<div><img src="instructions.jpg" /></div>',
         questions: [
-            { prompt: "Welcome to Motion Path Rating! User Name: ", name: 'user_id'}//, placeholder: "City, State/Province, Country" }
+            { prompt: "User Name: ", name: 'user_id'}//, placeholder: "City, State/Province, Country" }
             ],
         on_finish: function(data){
             var id = JSON.parse(data.responses).user_id.toLowerCase();
-            console.log(id)
+            //console.log(id)
             jsPsych.data.addProperties({user: id});
             },
     };
@@ -54,14 +56,15 @@
 
   // can add trials for each annotation_opt
   for (var opt = 0; opt < annotation_opts.length; opt++) {
-    for (var n = 0; n < stimuli.length; n++){
+    for (var n = 1; n < num_stim+1; n++){
 
         var trial = {
             type: 'custom-video-form-inputs',
-            stimulus: file_path+ stimuli[n],
+            width: 1000,
+            stimulus: file_path+ n +'.webm',
             prompt: 'How <span style="font-weight:bold; color:'+colors[opt]+'">'+
                     annotation_opts[opt] +' </span> is this motion path?',
-            form_html: '<label for="'+annotation_opts[opt] +'" style="font-size:12px"> Rating from 1-100: </label>' +
+            form_html: '<label for="'+annotation_opts[opt] +'" style="font-size:12px"> Rating from 1 (worst) to 100 (best): </label>' +
             '<input type="number" id="response" name="'+annotation_opts[opt] +'" min="1" max="100" style="width:50px">',
             delay_form: false,
             submit_keys: ['return','space'],
