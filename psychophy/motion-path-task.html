@@ -32,7 +32,7 @@
   const annotation_opts = ['good']//,'comfortable','safe','efficient','lawful']
 
   const file_path = 'test_stims/';
-  const num_stim = 5;
+  const num_stim = 2;
   //const stimuli = ['config1.webm']//['example1.m4v']//,'example2.m4v']
   var timeline = []
 
@@ -50,8 +50,7 @@
             jsPsych.data.addProperties({user: id});
             },
     };
-
-    timeline.push(user_id_trial);
+timeline.push(user_id_trial);
 
 
   // can add trials for each annotation_opt
@@ -61,7 +60,9 @@
         var trial = {
             type: 'custom-video-form-inputs',
             width: 1000,
-            stimulus: file_path+ n +'.webm',
+            //stimulus: file_path + 'example' + n +'.m4v',
+            config_num: n,
+            stimulus: file_path +n +'.webm',
             prompt: 'How <span style="font-weight:bold; color:'+colors[opt]+'">'+
                     annotation_opts[opt] +' </span> is this motion path?',
             form_html: '<label for="'+annotation_opts[opt] +'" style="font-size:12px"> Rating from 1 (worst) to 100 (best): </label>' +
@@ -74,14 +75,39 @@
     }
 }
 
+
+    function link_data(json){
+      var div_element = document.querySelector('div');
+      var link = document.createElement('a');
+      link.setAttribute('style','text-align: center; padding: 200px 600px;')
+      var blob = new Blob([json], {type: "application/json"});
+      var url  = URL.createObjectURL(blob);
+
+      link.setAttribute('download', 'annotations.json');
+      link.href = url;
+      link.innerHTML = '<div"> data link - right-click to save. </div>';
+
+      div_element.appendChild(link);
+      div_element.addEventListener('click', function (){
+        // wait for the link to be added to the document
+        window.requestAnimationFrame(function (){
+        var event = new MouseEvent('click');
+        div_element.removeChild(link);
+        });
+      }, false);
+    }
+
+
+
   jsPsych.init({
     timeline: timeline,
-    on_finish: function() {
-      jsPsych.data.displayData('json');
-      var data = jsPsych.data.get().filter({trial_type: 'custom-video-form-inputs'})
-      console.log(data)
-
-    },
+    on_finish: function () {
+        var relevant_data = jsPsych.data.get().filter({trial_type: 'custom-video-form-inputs'});
+        //jsPsych.data.displayData('json');
+        var json = relevant_data.json();
+        //console.log(json)
+        link_data(json)
+      },
     default_iti: 250
   });
 </script>

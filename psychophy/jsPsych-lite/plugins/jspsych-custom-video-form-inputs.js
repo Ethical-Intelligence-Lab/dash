@@ -86,12 +86,18 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
         description: 'How long to show trial before it ends.'
       },
        test_playback:{
-         type: jsPsych.plugins.parameterType.INT,
+        type: jsPsych.plugins.parameterType.BOOL,
         pretty_name: 'Test playback',
-        default: 0,
-        array: false,
-        description: 'Test whether video is playing'
+        default: false,
+        description: 'Test whether video is playing?'
       },
+      config_num:{
+      type: jsPsych.plugins.parameterType.INT,
+       pretty_name: 'Config # for this video',
+       default: 0,
+       array: false,
+       description: 'For easier indexing, the config num.'
+     },
       form_html: {
         type: jsPsych.plugins.parameterType.HTML_STRING,
         pretty_name: 'HTML',
@@ -234,6 +240,7 @@ jsPsych.plugins["custom-video-form-inputs"] = (function() {
           //"user": trial.user,
           "annotation": trial.question_type,
           "response": parseInt(document.getElementById("response").value),
+          "config":trial.config_num,
           "stimulus":trial.stimulus,
           //"rt": response_time
         };
