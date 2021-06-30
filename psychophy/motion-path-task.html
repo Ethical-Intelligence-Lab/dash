@@ -33,7 +33,9 @@
 
   const file_path = 'test_stims/';
   const num_stim = 20;
+  var stim_end = 101;
   const start_stim = parseInt(prompt('Complete '+String(num_stim)+' annotations, starting with config #: ','1'),10)
+  if (start_stim+num_stim < stim_end) { stim_end = start_stim+num_stim}
   //const stimuli = ['config1.webm']//['example1.m4v']//,'example2.m4v']
   var timeline = []
 
@@ -56,7 +58,7 @@ timeline.push(user_id_trial);
 
   // can add trials for each annotation_opt
   for (var opt = 0; opt < annotation_opts.length; opt++) {
-    for (var n = start_stim; n < num_stim+start_stim; n++){
+    for (var n = start_stim; n < stim_end; n++){
 
         var trial = {
             type: 'custom-video-form-inputs',
@@ -85,7 +87,7 @@ timeline.push(user_id_trial);
       var blob = new Blob([json], {type: "application/json"});
       var url  = URL.createObjectURL(blob);
 
-      link.setAttribute('download', 'annotations_' + String(start_stim) + 'to'+ String(start_stim+num_stim-1) +'.json');
+      link.setAttribute('download', 'annotations_' + String(start_stim) + 'to'+ String(stim_end-1) +'.json');
       link.href = url;
       link.innerHTML = '<div"> data link - right-click to save. </div>';
 
