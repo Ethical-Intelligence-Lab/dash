@@ -4,6 +4,7 @@
   <title>Rating Motion Plans</title>
   <script src="jsPsych-lite/jspsych.js"></script>
   <script src="jsPsych-lite/plugins/jspsych-custom-video-form-inputs.js"></script>
+  <script src="jsPsych-lite/plugins/jspsych-survey-text.js"></script>
   <link rel="stylesheet" href="jsPsych-lite/css/perceptive-csa.css"></link>
   <style>
     img {
@@ -27,16 +28,31 @@
 
 <script>
 
-    
-
   const colors = ["rgb(50,168,82)"]//, "rgb(158, 24, 24)", "rgb(18, 73, 201)","rgb(241, 135, 11)","rgb(113, 9, 166)"] // green, red, blue, yellow
   const annotation_opts = ['good']//,'comfortable','safe','efficient','lawful']
 
   const file_path = 'test_stims/'
-  const stimuli = ['example1.m4v','example2.m4v']
+  const stimuli = ['config1.webm']//['example1.m4v']//,'example2.m4v']
   var timeline = []
 
-  // can add trials for each annotation_opt later
+
+   // check subject's understanding of intstructions
+   var user_id_trial = {
+        type: 'survey-text',
+        questions: [
+            { prompt: "Welcome to Motion Path Rating! User Name: ", name: 'user_id'}//, placeholder: "City, State/Province, Country" }
+            ],
+        on_finish: function(data){
+            var id = JSON.parse(data.responses).user_id.toLowerCase();
+            console.log(id)
+            jsPsych.data.addProperties({user: id});
+            },
+    };
+
+    timeline.push(user_id_trial);
+
+
+  // can add trials for each annotation_opt
   for (var opt = 0; opt < annotation_opts.length; opt++) {
     for (var n = 0; n < stimuli.length; n++){
 
@@ -59,6 +75,9 @@
     timeline: timeline,
     on_finish: function() {
       jsPsych.data.displayData('json');
+      var data = jsPsych.data.get().filter({trial_type: 'custom-video-form-inputs'})
+      console.log(data)
+
     },
     default_iti: 250
   });
